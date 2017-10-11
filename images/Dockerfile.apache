@@ -1,0 +1,15 @@
+FROM ubuntu:xenial
+
+RUN apt-get update 
+RUN apt-get -y upgrade
+RUN apt-get update 
+
+RUN apt-get install -y  apache2
+
+ADD ./files/etc/apache2/sites-available/default.conf /etc/apache2/sites-available/000-default.conf
+
+RUN a2enmod rewrite
+RUN a2dismod mpm_event
+
+#create start point
+ENTRYPOINT ["apachectl", "-D", "FOREGROUND"]

@@ -1,0 +1,68 @@
+version: "2"
+
+services:
+    nginx:
+        build:
+            context: .
+            dockerfile: ./images/Dockerfile.nginx
+        image: hub.hc-fcad.de/server/nginx/sylius:latest
+        ports:
+          - 80:80
+        volumes:
+            - ./project/:/var/www/app
+        environment:
+            COMPOSE_HTTP_TIMEOUT: 200
+        networks:
+            staging-sylius-space:
+               ipv4_address: 172.18.0.2
+
+    apache:
+        build:
+            context: .
+            dockerfile: ./images/Dockerfile.apache
+        image: hub.hc-fcad.de/server/apache/sylius:latest
+        volumes:
+            - ./project/:/var/www/html
+        environment:
+            COMPOSE_HTTP_TIMEOUT: 200
+        networks:
+            staging-sylius-space:
+               ipv4_address: 172.18.0.3
+
+    mysql:
+        build:
+          context: .
+          dockerfile: ./images/Dockerfile.mysql
+        image: hub.hc-fcad.de/server/mysql/daedalus:latest
+        environment:
+          MYSQL_ROOT_PASSWORD: "root"
+        volumes:
+          - ./data/dumps/:/data/dumps/
+        networks:
+            staging-sylius-space:
+               ipv4_address: 172.18.0.5
+    php:
+        build:
+            context: .
+            dockerfile: ./images/Dockerfile.app
+        image:  hub.hc-fcad.de/server/app/sylius:latest
+#        env_file: ./user.env
+        environment:
+            USER_ENV_NAME: $USER
+            USER_ENV_ID: $XDG_RUNTIME_DIR
+            COMPOSE_HTTP_TIMEOUT: 200
+        extra_hosts:
+         - "sylius.local:172.18.0.2"
+        volumes:
+          - ./project/:/var/www/app
+
+        tty: true
+        networks:
+            staging-sylius-space:
+               ipv4_address: 172.18.0.4
+networks:
+  staging-sylius-space:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.0.0/16

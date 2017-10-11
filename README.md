@@ -9,10 +9,11 @@ Sylius Shop Application.
 >>The basic requirement is that the docker service is installed!!<<
 
 # Repository content:
-- ubuntu xenial os
-- php 7.0 with mods
+- ubuntu 16.04 os
+- php 7.1 with mods
 - composer
 - apache2 with php mod
+- nginx with php-fpm
 - mysql-server latest version
 
 # Start with build the Images for the Container:

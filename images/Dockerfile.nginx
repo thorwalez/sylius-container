@@ -1,0 +1,11 @@
+FROM ubuntu:xenial
+
+ENV TERM=xterm
+
+RUN apt-get update --fix-missing && apt-get -y upgrade && apt-get update
+
+RUN apt-get install -y nano nginx
+
+ADD ./files/etc/nginx/sites-available/default.conf /etc/nginx/sites-available/default
+
+CMD ["nginx", "-g", "daemon off;"]

@@ -1,0 +1,21 @@
+FROM ubuntu:16.04
+
+ENV TERM=xterm
+
+RUN apt-get update --fix-missing && apt-get upgrade -y
+
+# install helpfull packages
+RUN apt-get install -y nano curl
+
+# install php7.1-fpm
+RUN apt-get install -y software-properties-common
+RUN apt-get install -y python-software-properties
+RUN LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php
+RUN apt-get update --fix-missing && apt-get upgrade -y
+
+
+RUN apt-get install -y --no-install-recommends php7.1-fpm
+
+ADD ./files/etc/php/fpm/pool.d/www.conf /etc/php/7.1/fpm/pool.d/www.conf
+
+CMD service php7.1-fpm start && /bin/bash
