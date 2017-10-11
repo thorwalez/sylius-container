@@ -1,13 +1,11 @@
 FROM server/php-fpm/sylius:latest
 
+LABEL maintainer="mike_hartl@gmx.de"
+
 ENV TERM=xterm
 
 ENV LANGUAGE de_DE:de
 ENV LC_ALL de_DE.UTF-8
-
-#Install utf8 for germany
-#RUN locale-gen de_DE.UTF-8
-#RUN update-locale LANG=de_DE.UTF-8
 
 RUN apt-get update
 
@@ -46,10 +44,10 @@ RUN apt-get install -y \
                     php-ssh2
 
 
-ADD ./files/scripts/syliusConfiguration.sh /var/www/syliusConfiguration.sh
+COPY ./files/scripts/syliusConfiguration.sh /var/www/syliusConfiguration.sh
 
-ADD ./files/etc/php/apache2/php.ini /etc/php/7.1/apache2/php.ini
-ADD ./files/etc/php/cli/php.ini /etc/php/7.1/cli/php.ini
+COPY ./files/etc/php/apache2/php.ini /etc/php/7.1/apache2/php.ini
+COPY ./files/etc/php/cli/php.ini /etc/php/7.1/cli/php.ini
 
 # xdebug configuration
 COPY ./files/etc/php/mods-available/xdebug.ini /etc/php/7.1/mods-available/xdebug.ini

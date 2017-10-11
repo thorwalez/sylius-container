@@ -1,8 +1,11 @@
 FROM mysql/mysql-server:5.5
 
+LABEL maintainer="mike_hartl@gmx.de"
+
 RUN mkdir -p /data/dumps
 
 
 COPY ./files/scripts/syliusRoot.sql /data/dumps/syliusRoot.sql
 COPY ./files/scripts/dumper.sh /dumper.sh
+
 RUN chmod -R 777 /dumper.sh

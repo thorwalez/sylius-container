@@ -1,5 +1,7 @@
 FROM ubuntu:xenial
 
+LABEL maintainer="mike_hartl@gmx.de"
+
 RUN apt-get update 
 RUN apt-get -y upgrade
 RUN apt-get update 
