@@ -1,7 +1,7 @@
 Sylius Docker Container
 =======================
 
-Create at 05-03-2017
+Create at 10-10-2017
 
 This repository includes docker images to create a docker container for
 Sylius Shop Application.
@@ -102,3 +102,7 @@ docker inspect --format '{{ .NetworkSettings.IPAddress }}' test-app
 
 docker inspect --format '{{ .NetworkSettings.IPAddress }}' mysql-server
 ```
+
+Regard
+Occasionally it can happen that during the installation no database with the name sylius was created, 
+but a sylius_dev database. This must then be changed in the app/config/parameters.yml.
