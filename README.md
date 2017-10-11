@@ -26,11 +26,17 @@ Sylius Shop Application.
 
 ## without project folder on the Hostsystem:
 ```
-docker run --name test-app \
+$user@host:/path/to/source$ docker run --name test-app \
            -w /var/www/ \
            -d sylius/application/shop:latest 
 
-docker exec -it test-app bash
+$user@host:/path/to/source$  docker exec -it test-app bash
+
+#or
+
+$user@host:/path/to/source$ docker-compose up -d
+
+$user@host:/path/to/source$ docker-compose exec --user $USER php bash
 ```
 - clone the sylius project -> git clone https://github.com/Sylius/Sylius.git project
 
@@ -38,20 +44,23 @@ docker exec -it test-app bash
 $(pwd) -> path to the project folder
 
 ```
-docker run --name test-app \
+$user@host:/path/to/source$ docker run --name test-app \
            -v$(pwd)/:/var/www/project/ \
            -w /var/www/ \
            -d sylius/application/shop:latest 
 
- docker exec -it test-app bash
+$user@host:/path/to/source$ docker exec -it test-app bash
+ 
+ 
+#or
+
+$user@host:/path/to/source$ docker-compose up -d
+
+$user@host:/path/to/source$ docker-compose exec --user $USER php bash
 ```
 ## copy the shell script at the project folder:
-- cp syliusConfiguration.sh project/syliusConfiguration.sh 
-- chown -R $user:$user project/syliusConfiguration.sh 
-- chmod -R 766 project/syliusConfiguration.sh 
+- cp ../syliusConfiguration.sh . 
 
-## switch to the user have create:
-- example -> su sylius_user
 
 ## run the shell script 
 - sh syliusConfiguration.sh
@@ -69,24 +78,16 @@ In the web folder in the app_dev.php the 27 line out comment. 'The line contains
 
 - start.sh 
 
-- docker exec -i mysql-server mysql -uroot -proot <files/scripts/syliusRoot.sql
+- $user@host:/path/to/source$ docker exec -i mysql-server mysql -uroot -proot <files/scripts/syliusRoot.sql
 
-- docker run --name test-app \
-           -v$(pwd)/:/var/www/project/ \
-           -w /var/www/ \
-           -d sylius/application/shop:latest 
+- $user@host:/path/to/source$ docker run --name test-app \
+                                   -v$(pwd)/:/var/www/project/ \
+                                   -w /var/www/ \
+                                   -d sylius/application/shop:latest 
 
-- docker exec -it test-app bash
+- $user@host:/path/to/source$ docker exec -it test-app bash
 
-- cp syliusConfiguration.sh project/syliusConfiguration.sh 
-
-- chown -R $user:$user project/syliusConfiguration.sh 
-
-- chmod -R 766 project/syliusConfiguration.sh 
-
-- cd project
-
-- su sylius_user
+- $user@continaer:/var/www/app$ cp ../syliusConfiguration.sh . 
 
 - sh syliusConfiguration.sh
 
