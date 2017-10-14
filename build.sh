@@ -1,10 +1,10 @@
 #!/bin/bash
 
-docker build -t server/nginx/sylius:latest -f ./images/Dockerfile.nginx .
+docker build -t hub.hc-fcad.de/server/nginx/sylius:latest -f ./images/Dockerfile.nginx .
 #docker build -t hub.hc-fcad.de/server/apache/sylius:latest -f ./images/Dockerfile.apache .
-#docker build -t hub.hc-fcad.de/server/mysql/sylius:latest -f ./images/Dockerfile.mysql .
-docker build -t server/php-fpm/sylius:latest -f ./images/Dockerfile.php-fpm .
-docker build -t server/app/sylius:latest -f ./images/Dockerfile.app .
+docker build -t hub.hc-fcad.de/server/mysql/sylius:latest -f ./images/Dockerfile.mysql .
+docker build -t hub.hc-fcad.de/server/php-fpm/sylius:latest -f ./images/Dockerfile.php-fpm .
+docker build -t hub.hc-fcad.de/server/app/sylius:latest -f ./images/Dockerfile.app .
 
 echo 'docker exec -i mysql-server mysql -uroot -proot < files/scripts/syliusRoot.sql'
 
